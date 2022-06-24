@@ -12,9 +12,6 @@ fetch(now_playingURL,options)
     .then(response => response.json())
     .then(response => {
         response.results.forEach((element) =>{
-            console.log(element.backdrop_path);
-            console.log(element.title);
-            console.log(element.vote_average);
 
             let movie = document.createElement("li");
             let moviediv = document.createElement("div");
@@ -33,15 +30,12 @@ fetch(now_playingURL,options)
         })
     });
 
-const popularURL = "https://api.themoviedb.org/3/movie/now_playing?api_key="+APIKEY+"&language=en-US&page=1"
+const popularURL = "https://api.themoviedb.org/3/movie/popular?api_key="+APIKEY+"&language=en-US&page=1"
 const popular = document.getElementById("popular")
-fetch(now_playingURL,options)
+fetch(popularURL,options)
     .then(response => response.json())
     .then(response => {
         response.results.forEach((element) =>{
-            console.log(element.backdrop_path);
-            console.log(element.title);
-            console.log(element.vote_average);
 
             let movie = document.createElement("li");
             let moviediv = document.createElement("div");
@@ -56,6 +50,54 @@ fetch(now_playingURL,options)
             moviediv.appendChild(title);
             moviediv.appendChild(rate);
             movie.appendChild(moviediv);
-            now_playing.appendChild(movie);
+            popular.appendChild(movie);
+        })
+    });
+
+const TopLatedURL = "https://api.themoviedb.org/3/movie/top_rated?api_key="+APIKEY+"&language=en-US&page=1"
+const TopLated = document.getElementById("top-rated")
+fetch(TopLatedURL,options)
+    .then(response => response.json())
+    .then(response => {
+        response.results.forEach((element) =>{
+
+            let movie = document.createElement("li");
+            let moviediv = document.createElement("div");
+            let backdrop = document.createElement("img");
+            backdrop.setAttribute("src",IMAGE_URL+element.backdrop_path);
+            let title = document.createElement("h4");
+            title.innerText = element.title;
+            let rate = document.createElement("span");
+            rate.innerText = "★ "+element.vote_average;
+            
+            moviediv.appendChild(backdrop);
+            moviediv.appendChild(title);
+            moviediv.appendChild(rate);
+            movie.appendChild(moviediv);
+            TopLated.appendChild(movie);
+        })
+    });
+
+const upcomingURL = "https://api.themoviedb.org/3/movie/upcoming?api_key="+APIKEY+"&language=en-US&page=1"
+const upcoming = document.getElementById("upcoming")
+fetch(upcomingURL,options)
+    .then(response => response.json())
+    .then(response => {
+        response.results.forEach((element) =>{
+
+            let movie = document.createElement("li");
+            let moviediv = document.createElement("div");
+            let backdrop = document.createElement("img");
+            backdrop.setAttribute("src",IMAGE_URL+element.backdrop_path);
+            let title = document.createElement("h4");
+            title.innerText = element.title;
+            let rate = document.createElement("span");
+            rate.innerText = "★ "+element.vote_average;
+            
+            moviediv.appendChild(backdrop);
+            moviediv.appendChild(title);
+            moviediv.appendChild(rate);
+            movie.appendChild(moviediv);
+            upcoming.appendChild(movie);
         })
     });
